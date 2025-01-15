@@ -1,3 +1,25 @@
+
+<?php
+require_once 'database/koneksi.php';
+
+if (isset($_POST['register'])) {
+  $nik = $_POST['nik'];
+  $nama_lengkap = $_POST['nama'];
+  $telepon = $_POST['telp'];
+  $username = $_POST['username'];
+  $password = md5($_POST['password']);
+
+  $query = "INSERT INTO masyarakat (nik, nama, telp, username, password) VALUES ('$nik', '$nama_lengkap', '$telepon', '$username', '$password')";
+  $result = $conn->query($query);
+
+  if ($result) {
+    echo 'Register berhasil';
+  } else {
+    echo 'Register gagal';
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html>
  <head>
@@ -18,7 +40,7 @@
       color: #6c63fe !important;
     }
     ::placeholder {
-      color: white; 
+      color: white !important;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,32 +48,47 @@
  <body class="bg-light">
   <div class="container d-flex justify-content-center align-items-center vh-100">
    <div class="row w-100 justify-content-center align-items-center">
-    <div class="col-md-5 d-none d-md-block text-center">
+    <div class="col-md-5 d-none d-md-block ">
     <div class="card shadow border-0 card-color">
       <div class="card-body p-4">
-       <h2 class="text-center font-color fw-bold mb-4 font-color">Login</h2>
-       <form>
-        <div class="mb-3">
-         <label for="username" class="form-label font-color">Username</label>
+       <h2 class=" font-color fw-bold mb-4 font-color text-center">Register</h2>
+       <form method="post">
+        <div class="mb-2">
+         <label for="username" class="font-color">Nik</label>
          <input
-           type="text" class="form-control background-color text-light border-0"id="username"placeholder="Username"
+           type="text" class="form-control background-color text-light border-0" id="nik" name="nik" placeholder="Masukan Nik"
          />
         </div>
-        <div class="mb-3">
-         <label for="password" class="form-label font-color">Password</label>
-         <input type="password" class="form-control background-color text-white border-0" id="password" placeholder="Password"
+        <div class="mb-2">
+         <label for="Nama_lengkap" class="font-color">Nama Lengkap</label>
+         <input type="text" class="form-control background-color text-white border-0" id="nama" name="nama" placeholder="Masukan Nama Lengkap "
          />
         </div>
-        <button type="submit" class="btn background-color text-light w-100 rounded-pill fw-bold">
+        <div class="mb-2">
+         <label for="Nama_lengkap" class="font-color">Telepon</label>
+         <input type="text" class="form-control background-color text-white border-0" id="telp" name="telp" placeholder="Masukan Nomor Telepon"
+         />
+        </div>
+        <div class="mb-2">
+         <label for="Nama_lengkap" class="font-color">Username</label>
+         <input type="text" class="form-control background-color text-white border-0" id="username" name="username" placeholder="Masukan Username"
+         />
+        </div>
+        <div class="mb-4">
+         <label for="Password" class="font-color">Password</label>
+         <input type="password" class="form-control background-color text-white border-0" id="password" name="password" placeholder="Masukan Password"
+         />
+        </div>
+        <button type="submit" class="btn background-color text-light w-100 rounded-pill fw-bold" name="register">
          Log In
         </button>
-        <div class="text-center mt-3">
+        <div class=" mt-3 text-center">
          <a href="#" class="text-decoration-none font-color fw-bold">
           Forgot Password?
          </a>
          <br />
-         <a href="#" class="text-decoration-none font-color fw-bold">
-          Tidak punya akun? <strong>Register</strong>
+         <a href="login.php" class="text-decoration-none font-color fw-bold">
+          Sudah punya akun? <strong>Login</strong>
          </a>
         </div>
        </form>
@@ -60,7 +97,7 @@
     </div>
     <div class="col-md-5">
     <img
-       src="./asset/Computer.svg" alt="Illustration of a person with headphones working on a laptop" class="img-fluidstyle=" width="400px" />
+       src="./asset/Computer.svg" alt="Illustration of a person with headphones working on a laptop" class="img-fluidstyle ms-5" width="400px" />
     </div>
    </div>
   </div>

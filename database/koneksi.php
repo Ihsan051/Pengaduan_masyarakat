@@ -5,8 +5,8 @@ $username = 'root';
 $password = '';
 $dbname = 'pengaduan_masyarakat';
 
-$koneksi = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
-if(!$koneksi){
+if(!$conn){
     echo 'koneksi gagal';
 }

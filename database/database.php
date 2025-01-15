@@ -24,11 +24,11 @@ if (!$conn->query($sql) === TRUE) {
 $conn->select_db($dbname);
 
 $table_masyarakat = "CREATE table masyarakat (
-            nik char(16) PRIMARY KEY,
-            nama varchar(35),
-            username varchar(25),
-            password varchar(32),
-            telp varchar(13)
+            nik char(16) PRIMARY KEY NOT NULL,
+            nama varchar(35) NOT NULL,
+            username varchar(25) unique NOT NULL,
+            password varchar(32) NOT NULL,
+            telp varchar(13) NOT NULL
             )";
 
 if($conn->query($table_masyarakat) === TRUE){
@@ -40,13 +40,13 @@ if($conn->query($table_masyarakat) === TRUE){
 echo "<br>";
 
 $table_pengaduan = "CREATE table pengaduan (
-    id_pengaduan int(11) PRIMARY KEY,
-    tanggal_pengaduan date,
-    nik char(16),
-    isi_laporan text,
-    foto varchar(255),
+    id_pengaduan int(11) PRIMARY KEY NOT NULL,
+    tanggal_pengaduan date NOT NULL,
+    nik char(16) NOT NULL,
+    isi_laporan text NOT NULL,
+    foto varchar(255) NOT NULL,
     status enum('0','proses','selesai'),
-    FOREIGN KEY (nik) REFERENCES masyarakat(nik)
+    FOREIGN KEY (nik) REFERENCES masyarakat(nik) 
     )";
  
  if($conn->query($table_pengaduan) === TRUE){
@@ -58,11 +58,11 @@ $table_pengaduan = "CREATE table pengaduan (
     echo "<br>";
 
 $table_petugas = "CREATE table petugas (
-    id_petugas int(11) PRIMARY KEY,
-    nama_petugas varchar(35),
-    username varchar(25),
-    telp varchar(13),
-    level enum('admin','petugas')
+    id_petugas int(11) PRIMARY KEY NOT NULL,
+    nama_petugas varchar(35) NOT NULL,
+    username varchar(25) NOT NULL,
+    telp varchar(13) NOT NULL,
+    level enum('admin','petugas') NOT NULL
     )";
 
 if($conn->query($table_petugas)){
@@ -74,11 +74,11 @@ echo "<br>";
 
 
     $table_tanggapan = "CREATE table tanggapan (
-        id_tanggapan int(11) PRIMARY KEY,
-        id_pengaduan int(11),
-        tgl_tanggapan date,
-        tanggapan text,
-        id_petugas int(11),
+        id_tanggapan int(11) PRIMARY KEY NOT NULL,
+        id_pengaduan int(11) NOT NULL,
+        tgl_tanggapan date NOT NULL,
+        tanggapan text NOT NULL,
+        id_petugas int(11) NOT NULL,
         FOREIGN KEY (id_petugas) REFERENCES petugas(id_petugas),
         FOREIGN KEY (id_pengaduan) REFERENCES pengaduan(id_pengaduan)
         )";

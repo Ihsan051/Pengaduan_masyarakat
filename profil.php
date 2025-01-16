@@ -1,20 +1,24 @@
 <?php
+session_start();
 require_once 'database/koneksi.php';
-require_once 'login.php';
-
-// Cek apakah user sudah login
-if (!isset($_SESSION['username'])) {
+if (empty($_SESSION['username'])) {
+    # code...
     header('Location: login.php');
-    exit;
+} else {
+    // Cek apakah user sudah login
+    if (!isset($_SESSION['username'])) {
+        header('Location: login.php');
+        exit;
+    }
+    
+    // Ambil data user dari database
+    $username = $_SESSION['username'];
+    $query = "SELECT * FROM masyarakat WHERE username = '$username'";
+    $result = $conn->query($query);
+    $user_data = $result->fetch_assoc();
 }
 
-// Ambil data user dari database
-$username = $_SESSION['username'];
-$query = "SELECT * FROM masyarakat WHERE username = '$username'";
-$result = $conn->query($query);
-$user_data = $result->fetch_assoc();
-
-// Tampilkan data user
+// Tampilkan data profil
 ?>
 
 <!DOCTYPE html>

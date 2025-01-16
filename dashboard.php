@@ -1,3 +1,17 @@
+<?php 
+session_start();
+include_once 'database/koneksi.php';
+
+require_once 'database/koneksi.php';
+if (empty($_SESSION['username'])) {
+    # code...
+    header('Location: login.php');
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +55,7 @@
             <div class="col-md-3">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action">Buat Pengaduan</a>
+                    <a href="buat_pengaduan.php" class="list-group-item list-group-item-action">Buat Pengaduan</a>
                     <a href="#" class="list-group-item list-group-item-action">Riwayat Pengaduan</a>
                     <a href="#" class="list-group-item list-group-item-action">Manajemen Pengguna</a>
                     <a href="#" class="list-group-item list-group-item-action">Laporan Statistik</a>
